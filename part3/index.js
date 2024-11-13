@@ -1,7 +1,14 @@
 const express = require("express");
 const app = express();
-const port = 3001;
 const morgan = require("morgan");
+const cors = require("cors");
+const PORT = process.env.PORT || 3001;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 let persons = [
   {
@@ -35,6 +42,7 @@ morgan.token('post-data', (req) => {
   
 
 // Middleware
+app.use(express.static("dist"));
 app.use(express.json());
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'));
 
@@ -118,6 +126,6 @@ app.use(unknownEndpoint);
 
 
 // Server
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
