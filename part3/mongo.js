@@ -38,7 +38,7 @@ if (process.argv.length < 5) {
     process.exit(0)
   })
 } else {
-  person.save().then(result => {
+  person.save().then(() => {
     console.log(`added ${name} number ${number} to phonebook`)
     mongoose.connection.close()
   })
